@@ -6,7 +6,8 @@ public class BarrierGenerator : MonoBehaviour
 {
 	[Header("References")]
     [SerializeField] GameObject barrier;
-    [SerializeField] Transform y_max, y_min,x_max;
+	[SerializeField] Transform y_max, y_min;
+	public Transform x_min;
 
 	[Header("Generation")]
     [SerializeField] List<GameObject> list_barriers = new List<GameObject>();
@@ -17,7 +18,7 @@ public class BarrierGenerator : MonoBehaviour
 
 	private void Awake()
 	{
-		//InvokeRepeating("CreateBarrier", 2, interval);
+		InvokeRepeating("CreateBarrier", 2, interval);
 	}
 	#endregion
 
@@ -28,7 +29,7 @@ public class BarrierGenerator : MonoBehaviour
 	void CreateBarrier()
 	{
 		float randomHeight = Random.Range(y_min.position.y, y_max.position.y);
-		Vector3 randomPos = new Vector3(0, randomHeight, 0);
+		Vector2 randomPos = new Vector2(transform.position.x, randomHeight);
 		GetBarrier().transform.position = randomPos;
 	}
 
@@ -46,9 +47,11 @@ public class BarrierGenerator : MonoBehaviour
 			}
 		}
 
-		GameObject tempGO = Instantiate(barrier, Vector3.zero, Quaternion.identity);
-		list_barriers.Add(tempGO);
-		return tempGO;
+		//GameObject tempGO = Instantiate(barrier, transform);
+		Barrier_ tempBarrier = Instantiate(barrier, transform).GetComponent<Barrier_>().Init(x_min);
+		tempBarrier.gameObject.SetActive(true);
+		list_barriers.Add(tempBarrier.gameObject);
+		return tempBarrier.gameObject;
 
 	}
 	#endregion

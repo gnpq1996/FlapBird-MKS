@@ -11,15 +11,21 @@ public class Barrier_ : MonoBehaviour
 	[SerializeField] float vel;
 	[SerializeField] Transform x_min;
 
+	public Barrier_ Init(Transform _minX)
+	{
+		x_min = _minX;
+		return this;
+	}
 	#region MonoBehaviour
 	//==============================================================
 
 	private void Awake()
 	{
 		children = children = GetComponentsInChildren<Transform>();
+		x_min = GetComponentInParent<BarrierGenerator>().x_min;
 	}
 
-	private void FixedUpdate()
+	private void Update()
 	{
 		Movement();
 	}
