@@ -11,9 +11,10 @@ public class Barrier_ : MonoBehaviour
 	[SerializeField] float vel;
 	[SerializeField] Transform x_min;
 
-	public Barrier_ Init(Transform _minX)
+	public Barrier_ Init(Transform _minX,float _vel)
 	{
 		x_min = _minX;
+		vel = _vel;
 		return this;
 	}
 	#region MonoBehaviour

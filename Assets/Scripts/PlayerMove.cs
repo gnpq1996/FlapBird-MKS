@@ -28,6 +28,7 @@ public class PlayerMove : MonoBehaviour
 	#region Functions
 	//====================================================================
 
+
 	public void Jump()
 	{
 		Debug.Log(gameObject.name + " jumping");

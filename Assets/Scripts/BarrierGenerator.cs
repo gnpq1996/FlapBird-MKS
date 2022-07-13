@@ -12,19 +12,30 @@ public class BarrierGenerator : MonoBehaviour
 	[Header("Generation")]
     [SerializeField] List<GameObject> list_barriers = new List<GameObject>();
 	[SerializeField] float interval;
+	[SerializeField] float vel;
 
 	#region MonoBehaviour
 	//=========================================================
 
 	private void Awake()
 	{
-		InvokeRepeating("CreateBarrier", 2, interval);
+		EventManager.GameStart += EventHandler_JogoComecou;
 	}
+
+	private void OnDestroy()
+	{
+		EventManager.GameStart -= EventHandler_JogoComecou;
+	}
+
+
 	#endregion
 
 	#region Functions
 	//=========================================================
-
+	private void EventHandler_JogoComecou()
+	{
+		InvokeRepeating("CreateBarrier", 2, interval);
+	}
 
 	void CreateBarrier()
 	{
@@ -48,7 +59,7 @@ public class BarrierGenerator : MonoBehaviour
 		}
 
 		//GameObject tempGO = Instantiate(barrier, transform);
-		Barrier_ tempBarrier = Instantiate(barrier, transform).GetComponent<Barrier_>().Init(x_min);
+		Barrier_ tempBarrier = Instantiate(barrier, transform).GetComponent<Barrier_>().Init(x_min,vel);
 		tempBarrier.gameObject.SetActive(true);
 		list_barriers.Add(tempBarrier.gameObject);
 		return tempBarrier.gameObject;
