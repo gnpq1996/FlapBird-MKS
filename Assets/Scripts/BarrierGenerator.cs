@@ -19,6 +19,7 @@ public class BarrierGenerator : MonoBehaviour
 
 	private void Awake()
 	{
+		Debug.Log(gameObject.name + " 1");
 		EventManager.GameStart += EventHandler_JogoComecou;
 	}
 
@@ -34,11 +35,13 @@ public class BarrierGenerator : MonoBehaviour
 	//=========================================================
 	private void EventHandler_JogoComecou()
 	{
+		Debug.Log(gameObject.name + " Ouvindo GameStart");
 		InvokeRepeating("CreateBarrier", 2, interval);
 	}
 
 	void CreateBarrier()
 	{
+		Debug.Log(gameObject.name + " Criando barreira");
 		float randomHeight = Random.Range(y_min.position.y, y_max.position.y);
 		Vector2 randomPos = new Vector2(transform.position.x, randomHeight);
 		GetBarrier().transform.position = randomPos;

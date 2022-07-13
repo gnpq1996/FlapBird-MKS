@@ -6,5 +6,6 @@ using UnityEngine;
 public static class EventManager
 {
 	public static Action GameStart;
+	public static Action NewPoint;
 	public static Action Player_died;
 }
